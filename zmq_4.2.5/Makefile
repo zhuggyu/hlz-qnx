@@ -1,3 +1,12 @@
+CFLAGS = -Wall
+DEBUG = y
+
+ifeq ($(DEBUG), y)
+CFLAGS += -g
+else
+CFLAGS += -O2
+endif
+
 CC = QCC
 CFLAGS += -Vgcc_ntoarmv7le
 
