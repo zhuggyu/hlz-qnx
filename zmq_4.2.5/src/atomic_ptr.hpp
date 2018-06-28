@@ -209,7 +209,8 @@ template <typename T> class atomic_ptr_t
     inline T *cas (T *cmp_, T *val_)
     {
 #if defined ZMQ_ATOMIC_PTR_CXX11
-        ptr.compare_exchange_strong (cmp_, val_, std::memory_order_acq_rel);
+        //ptr.compare_exchange_strong (cmp_, val_, std::memory_order_acq_rel);
+        ptr.compare_exchange_strong (cmp_, val_, std::memory_order_seq_cst);
         return cmp_;
 #else
         return (T *) atomic_cas ((void **) &ptr, cmp_, val_

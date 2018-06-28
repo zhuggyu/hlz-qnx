@@ -177,7 +177,7 @@ static void *thread_routine (void *arg_)
     posix_assert (rc);
 #endif
     zmq::thread_t *self = (zmq::thread_t *) arg_;
-    self->applySchedulingParameters ();
+    //self->applySchedulingParameters ();
     self->tfn (self->arg);
     return NULL;
 }
@@ -190,6 +190,7 @@ void zmq::thread_t::start (thread_fn *tfn_, void *arg_)
     int rc = pthread_create (&descriptor, NULL, thread_routine, this);
     posix_assert (rc);
     started = true;
+    applySchedulingParameters();
 }
 
 void zmq::thread_t::stop ()
