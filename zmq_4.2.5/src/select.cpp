@@ -295,7 +295,7 @@ void zmq::select_t::loop ()
 {
     while (true) {
         //  Execute any due timers.
-        int timeout = (int) execute_timers ();
+        uint64_t timeout = execute_timers ();
 
         cleanup_retired ();
 
@@ -316,8 +316,8 @@ void zmq::select_t::loop ()
 #if defined ZMQ_HAVE_OSX
         struct timeval tv = {(long) (timeout / 1000), timeout % 1000 * 1000};
 #else
-        struct timeval tv = {(long) (timeout / 1000),
-                             (long) (timeout % 1000 * 1000)};
+        struct timeval tv = {(time_t) (timeout / 1000),
+                             (suseconds_t) (timeout % 1000 * 1000)};
 #endif
 
 #if defined ZMQ_HAVE_WINDOWS
